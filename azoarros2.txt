@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Asoarroz Casanare - Productores</title>
+</head>
+<body>
+  <header>
+    <h1>Asoarroz Casanare</h1>
+    <nav aria-label="Navegación principal">
+      <ul>
+        <li><a href="index.html">Inicio</a></li>
+        <li><a href="precios.html">Precios</a></li>
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <section>
+      <h2>Quiénes somos</h2>
+      <p>Reunimos a 240 familias.</p>
+    </section>
+    <section>
+      <h2>Boletín de precios</h2>
+      <article>
+        <h3>Semana del 7 al 13</h3>
+        <p>195.000 pesos el bulto.</p>
+      </article>
+    </section>
+    <aside><h2>Convocatorias</h2><ul><li>Crédito</li></ul></aside>
+  </main>
+  <footer><p>Aguazul, Casanare</p></footer>
+</body>
+</html>

@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<!--
+  ============================================================================
+  DESARROLLO WEB (FI20064) - SEMANA 3 - EJEMPLO DIRIGIDO
+  Archivo: asociados.html
+  Sitio:   Asoarroz Casanare (caso que se viene construyendo desde la Semana 2)
+
+  QUÉ ES ESTE ARCHIVO
+  La página de inscripción de nuevos asociados. Es la tercera página del
+  sitio y la primera que RECIBE datos: hasta ahora el sitio solo mostraba
+  información.
+
+  DÓNDE VA
+  En la raiz de la carpeta del proyecto, junto a index.html y precios.html:
+
+      desarrollo-web-2026B/
+        index.html            (Semana 2)
+        precios.html          (Semana 2)
+        asociados.html        <- ESTE ARCHIVO
+        paginas/
+          contacto.html       (Semana 2)
+
+  QUÉ ENSEÑA
+  Paso 1 - El contenedor form y el botón de envío
+  Paso 2 - La pareja label + input, y la diferencia entre id y name
+  Paso 3 - Los tipos especializados de input
+  Paso 4 - Opciones: select y datalist
+  Paso 5 - Agrupar con fieldset, texto largo y autorización
+  Además  - Validación nativa: required, minlength, maxlength, pattern,
+            min, max y step
+
+  IMPORTANTE
+  El archivo registro.php NO existe todavía. Al enviar el formulario el
+  navegador mostrara un error 404, y eso es lo esperado: el programa del
+  servidor que recibe estos datos se construye en la Semana 10. Hoy lo que
+  interesa es que los datos salgan bien formados y validados.
+  ============================================================================
+-->
+<html lang="es">
+<!--
+  lang="es" declara el idioma del contenido. El lector de pantalla lo usa
+  para pronunciar con reglas del español, y el navegador para ofrecer
+  traducción y revisión ortográfica. Sin él, un lector configurado en
+  inglés leería "asociados" con pronunciación inglesa.
+-->
+
+<head>
+  <!--
+    El head contiene información SOBRE el documento. Nada de lo que va aquí
+    se ve en el cuerpo de la página.
+  -->
+
+  <!-- Codificación de caracteres. Sin esta línea las tildes y las enes
+       se verían como símbolos rotos. Debe ir de primera dentro del head. -->
+  <meta charset="UTF-8">
+
+  <!-- Indica al celular que use el ancho real de su pantalla en lugar de
+       simular una pantalla de escritorio y reducirla. Sin esta línea el
+       formulario se vería diminuto en el teléfono. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- El título describe ESTA página, no el sitio entero. Es lo que se lee
+       en la pestaña del navegador, en el resultado del buscador y lo
+       primero que anuncia el lector de pantalla al abrir la página. -->
+  <title>Inscripción de asociados - Asoarroz Casanare</title>
+</head>
+
+<body>
+
+  <!-- ======================================================================
+       ENCABEZADO DEL SITIO
+       Es la misma estructura de la Semana 2: identidad y navegación.
+       ====================================================================== -->
+  <header>
+
+    <!-- En una página interna el h1 nombra la PÁGINA, no la organización.
+         Debe haber exactamente un h1 por documento. -->
+    <h1>Inscripción de asociados</h1>
+
+    <!-- El nombre de la organización baja a un parrafo de apoyo. No se usa
+         un h2 porque no es el título de una sección. -->
+    <p>Asoarroz Casanare - Asociación de productores de arroz de Aguazul</p>
+
+    <!-- aria-label nombra la region. El lector de pantalla anuncia
+         "navegación principal" en lugar de solo "navegación". -->
+    <nav aria-label="Navegación principal">
+
+      <!-- Un menu siempre es una lista: el lector anuncia "lista de 4
+           elementos" y el usuario sabe cuantas opciones hay. -->
+      <ul>
+        <!-- Ruta hermana: index.html está en la misma carpeta -->
+        <li><a href="index.html">Inicio</a></li>
+
+        <li><a href="precios.html">Precios</a></li>
+
+        <!-- aria-current="page" marca la página actual. El lector anuncia
+             "página actual" y el usuario sabe dónde está sin depender del
+             color del enlace. -->
+        <li><a href="asociados.html" aria-current="page">Asociados</a></li>
+
+        <!-- Ruta hacia abajo: entra a la carpeta páginas -->
+        <li><a href="paginas/contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <!-- ======================================================================
+       CONTENIDO PRINCIPAL
+       main es único por página. Contiene aquello por lo que el usuario vino.
+       ====================================================================== -->
+  <main>
+
+    <section>
+      <!-- Toda section lleva su título. Es h2 porque esta un nivel por
+           debajo del h1 de la página. -->
+      <h2>Formulario de inscripción</h2>
+
+      <!-- Instrucción general ANTES del formulario, no después. Quien usa
+           lector de pantalla la oye antes de llegar a los campos. -->
+      <p>Los campos marcados como obligatorios deben diligenciarse para
+         poder enviar la solicitud.</p>
+
+
+      <!-- ==================================================================
+           PASO 1 - EL CONTENEDOR DEL FORMULARIO
+
+           action = a dónde se envían los datos. Es la dirección del programa
+                    en el servidor que los va a recibir y procesar.
+
+           method = cómo viajan los datos.
+                    post: van en el cuerpo de la petición, no se ven en la
+                          barra de direcciones ni quedan en el historial.
+                          Es lo correcto para una inscripción.
+                    get:  irían visibles en la dirección, así:
+                          registro.php?nombre=Ana&cédula=1234567
+                          Sirve para búsquedas, no para registros.
+
+           OJO: post NO significa cifrado. Sin HTTPS los datos viajan igual
+           de legibles. Lo que cambia es dónde van, no si están protegidos.
+
+           Todo control que deba enviarse tiene que quedar ENTRE la etiqueta
+           de apertura y la de cierre del form. Lo que quede afuera no viaja.
+           ================================================================== -->
+      <form action="registro.php" method="post">
+
+
+        <!-- ================================================================
+             PASO 5 - AGRUPAR CAMPOS RELACIONADOS
+
+             fieldset agrupa campos que pertenecen a un mismo tema.
+             legend es el título del grupo. El lector de pantalla lo anuncia
+             antes de cada campo del grupo, así que el usuario oye
+             "Datos del productor, Nombre completo".
+             ================================================================ -->
+        <fieldset>
+          <legend>Datos del productor</legend>
+
+
+          <!-- ==============================================================
+               PASO 2 - LA PAREJA LABEL + INPUT
+
+               El atributo for del label y el atributo id del input deben
+               ser IDÉNTICOS. Esa coincidencia hace dos cosas:
+                 1. Al tocar el texto de la etiqueta se activa el campo,
+                    decisivo en un celular donde el objetivo es pequeño.
+                 2. El lector de pantalla anuncia el nombre del campo cuando
+                    el usuario llega a el.
+
+               id   = identifica el elemento DENTRO del documento.
+               name = es la llave con la que el dato llega al SERVIDOR.
+               Suelen escribirse igual, pero cumplen funciones distintas.
+               Un campo sin name se llena normalmente y su valor NUNCA llega
+               al servidor: es un error silencioso.
+
+               El parrafo p solo separa visualmente cada campo. En la
+               Semana 4 esto se resolverá con CSS.
+               ============================================================== -->
+          <p>
+            <label for="nombre">Nombre completo</label>
+
+            <!-- VALIDACIÓN NATIVA
+                 required   = el navegador no deja enviar si está vacío.
+                 minlength  = mínimo de caracteres. Cinco evita nombres
+                              incompletos como "Ana".
+                 maxlength  = máximo de caracteres. Además de validar,
+                              impide seguir escribiendo al llegar al límite.
+                 Los límites salen del negocio, no del tipo de dato: se
+                 pensó en el largo real de un nombre completo. -->
+            <input type="text" id="nombre" name="nombre"
+                   required minlength="5" maxlength="80">
+          </p>
+
+
+          <p>
+            <label for="cedula">Número de cédula</label>
+
+            <!-- pattern exige que el valor cumpla una expresión regular.
+                 [0-9]{6,10} se lee: entre seis y diez caracteres, todos
+                 dígitos del 0 al 9. Así se rechaza una cédula escrita con
+                 puntos antes de que llegue a la base de datos.
+
+                 Se usa type="text" y no type="number" a propósito: una
+                 cédula no es una cantidad. No se suma ni se promedia, y
+                 type="number" mostraría flechas para aumentar o disminuir
+                 el valor, que no tienen sentido aquí.
+
+                 title explica el formato cuando la validación falla. Sin
+                 el, el mensaje del navegador solo dice que el formato no
+                 coincide, sin decir cuál es el formato correcto. -->
+            <input type="text" id="cedula" name="cedula"
+                   required pattern="[0-9]{6,10}"
+                   title="Entre 6 y 10 dígitos, sin puntos ni comas">
+          </p>
+
+
+          <!-- ==============================================================
+               PASO 3 - TIPOS ESPECIALIZADOS
+
+               El atributo type cambia tres cosas a la vez: el teclado que
+               abre el celular, la validación automática y el significado
+               que anuncia el lector de pantalla. Es la mejora de
+               usabilidad más barata que existe.
+               ============================================================== -->
+          <p>
+            <label for="correo">Correo electrónico</label>
+
+            <!-- type="email" valida por si solo que haya arroba y dominio,
+                 sin JavaScript ni expresión regular. En el celular abre el
+                 teclado con la tecla @ visible. -->
+            <input type="email" id="correo" name="correo" required>
+          </p>
+
+
+          <p>
+            <label for="celular">Celular</label>
+
+            <!-- type="tel" abre el teclado numérico en el celular, pero NO
+                 valida nada por si solo: el formato telefónico cambia en
+                 cada país y el navegador no puede asumir uno. Por eso se
+                 complementa con pattern.
+
+                 3[0-9]{9} se lee: un 3 seguido de nueve dígitos más. Es el
+                 formato de los celulares en Colombia: diez dígitos que
+                 empiezan por 3.
+
+                 Este campo NO lleva required: el celular es opcional porque
+                 ya se pidió el correo como medio de contacto obligatorio. -->
+            <input type="tel" id="celular" name="celular"
+                   pattern="3[0-9]{9}"
+                   title="Diez dígitos, empieza por 3">
+          </p>
+
+        </fieldset>
+        <!-- Fin del grupo "Datos del productor" -->
+
+
+        <!-- Segundo grupo: la información del predio y el cultivo -->
+        <fieldset>
+          <legend>Datos del predio</legend>
+
+
+          <!-- ==============================================================
+               PASO 4 - DATALIST: SUGERIR SIN OBLIGAR
+
+               datalist ofrece sugerencias mientras el usuario escribe, pero
+               le permite digitar un valor que no esté en la lista.
+
+               Se eligió datalist para la vereda porque en Aguazul hay
+               decenas de veredas y pueden aparecer nuevas: una lista
+               cerrada dejaría por fuera a algun productor.
+
+               El atributo list del input debe coincidir EXACTAMENTE con el
+               id del datalist. Es la misma lógica que for e id del label.
+               ============================================================== -->
+          <p>
+            <label for="vereda">Vereda</label>
+            <input list="veredas" id="vereda" name="vereda" required>
+
+            <datalist id="veredas">
+              <!-- Cada option es una sugerencia. El datalist no se ve
+                   hasta que el usuario empieza a escribir en el campo. -->
+              <option value="Cupiagua"></option>
+              <option value="Monterralo"></option>
+              <option value="San José"></option>
+              <option value="Unete"></option>
+            </datalist>
+          </p>
+
+
+          <p>
+            <label for="hectareas">Hectáreas sembradas</label>
+
+            <!-- type="number" solo acepta números y abre el teclado
+                 numérico.
+
+                 min="0.5"  impide cero y negativos: nadie se inscribe
+                            con cero hectáreas.
+                 max="500"  impide cifras absurdas por error de digitación.
+                 step="0.5" permite medias hectáreas (1.5, 2.0, 2.5) y
+                            rechaza valores como 1.3.
+
+                 Estos límites son un requerimiento del negocio que se
+                 levanta hablando con la asociación, no algo que se decida
+                 frente al teclado. -->
+            <input type="number" id="hectareas" name="hectareas"
+                   min="0.5" max="500" step="0.5" required>
+          </p>
+
+
+          <p>
+            <label for="siembra">Fecha de siembra</label>
+
+            <!-- type="date" muestra el selector de fecha del sistema.
+
+                 min y max también funcionan con fechas. El formato en el
+                 código es SIEMPRE año-mes-día (AAAA-MM-DD), sin importar
+                 como lo muestre el navegador en pantalla.
+
+                 Acotar al 2026 evita, por ejemplo, una siembra registrada
+                 en 1926 por un error al digitar el año. -->
+            <input type="date" id="siembra" name="siembra"
+                   min="2026-01-01" max="2026-12-31">
+          </p>
+
+
+          <!-- ==============================================================
+               PASO 4 - SELECT: LISTA CERRADA
+
+               select obliga a elegir UNA de las opciones definidas. Se usa
+               cuando el conjunto de respuestas validas es conocido y
+               corto: la asociación maneja solo estos cultivos.
+               ============================================================== -->
+          <p>
+            <label for="cultivo">Cultivo principal</label>
+
+            <select id="cultivo" name="cultivo" required>
+
+              <!-- La primera opción con value vacío es INTENCIONAL.
+                   Sin ella quedaría preseleccionado "Arroz", y el sistema
+                   registraría como respuesta algo que el usuario nunca
+                   eligió. Como su value está vacío, required impide enviar
+                   el formulario si el usuario no cambia la selección. -->
+              <option value="">Seleccione una opción</option>
+
+              <!-- value es lo que viaja al servidor. El texto entre las
+                   etiquetas es lo que ve el usuario. Aquí el usuario lee
+                   "Palma de aceite" y el servidor recibe "palma". -->
+              <option value="arroz">Arroz</option>
+              <option value="palma">Palma de aceite</option>
+              <option value="otro">Otro</option>
+            </select>
+          </p>
+
+        </fieldset>
+        <!-- Fin del grupo "Datos del predio" -->
+
+
+        <!-- Tercer grupo: texto libre y autorización legal -->
+        <fieldset>
+          <legend>Observaciones y autorización</legend>
+
+
+          <!-- ==============================================================
+               PASO 5 - TEXTAREA: TEXTO LARGO
+
+               textarea NO es un input: tiene etiqueta de apertura Y de
+               cierre. Cualquier texto que quede entre las dos aparece como
+               valor inicial del campo, por eso se deja vacío y cerrado en
+               la misma línea.
+
+               rows="4"        altura visible, en líneas de texto.
+               maxlength="300" límite de caracteres. Sin límite, alguien
+                               podría pegar un documento completo y
+                               saturar la base de datos.
+               ============================================================== -->
+          <p>
+            <label for="observaciones">Observaciones</label>
+            <textarea id="observaciones" name="observaciones"
+                      rows="4" maxlength="300"></textarea>
+          </p>
+
+
+          <!-- ==============================================================
+               PASO 5 - CASILLA DE VERIFICACIÓN
+
+               En una casilla el label va DESPUÉS del input, porque describe
+               lo que se esta aceptando, no lo que se va a escribir.
+
+               required en un checkbox significa que DEBE marcarse para
+               poder enviar. Es el uso correcto para una autorización
+               obligatoria.
+
+               La Ley 1581 de 2012 regula la protección de datos personales
+               en Colombia y exige autorización previa del titular para
+               tratarlos. Una asociación que recibe cédulas y celulares de
+               sus productores está obligada a pedirla.
+               ============================================================== -->
+          <p>
+            <input type="checkbox" id="datos" name="datos" required>
+            <label for="datos">Autorizo el tratamiento de mis datos
+                   personales conforme a la Ley 1581 de 2012</label>
+          </p>
+
+        </fieldset>
+        <!-- Fin del grupo "Observaciones y autorización" -->
+
+
+        <!-- ================================================================
+             PASO 1 - EL BOTÓN DE ENVÍO
+
+             type="submit" envía el formulario y, antes de enviarlo, dispara
+             toda la validación nativa: required, pattern, min, max, step,
+             minlength y maxlength. Si algo falla, el navegador detiene el
+             envío y señala el primer campo con error.
+
+             Sin type, algunos navegadores asumen submit igual, pero
+             declararlo evita sorpresas cuando haya más de un botón.
+
+             Se usa button y no input type="submit" porque button admite
+             contenido dentro de sus etiquetas, lo que da más flexibilidad
+             en las semanas siguientes.
+             ================================================================ -->
+        <p>
+          <button type="submit">Enviar inscripción</button>
+        </p>
+
+      </form>
+      <!-- Fin del formulario. Nada que quede después de esta línea se
+           envía al servidor. -->
+
+    </section>
+  </main>
+
+
+  <!-- ======================================================================
+       PIE DE PÁGINA
+       Va FUERA de main: el pie no es contenido principal, cierra el
+       documento.
+       ====================================================================== -->
+  <footer>
+    <p>Asoarroz Casanare - Calle 9 No. 12-40, Aguazul, Casanare</p>
+  </footer>
+
+</body>
+
+</html>
+
+<!--
+  ============================================================================
+  RECORDATORIO FINAL: LA VALIDACIÓN DEL NAVEGADOR NO ES SEGURIDAD
+
+  Toda la validación de este archivo se ejecuta en la máquina del usuario, y
+  el usuario controla su máquina. Basta abrir las herramientas de desarrollo
+  con F12, borrar el atributo required de un campo y enviar: el formulario
+  pasa vacío.
+
+  La validación del navegador sirve para que el usuario vea el error de
+  inmediato, sin esperar al servidor. Es una mejora de experiencia de uso.
+
+  NO sirve para garantizar que los datos que llegan sean validos. Eso solo
+  puede hacerlo el servidor, y se implementa en las Semanas 10 y 11.
+
+  Regla practica: valide en el cliente para que el usuario no sufra, y
+  valide en el servidor para que el sistema no mienta.
+  ============================================================================
+-->

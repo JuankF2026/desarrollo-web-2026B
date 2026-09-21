@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- El title describe ESTA página, no el sitio entero -->
+  <title>Boletín de precios - Asoarroz Casanare</title>
+</head>
+
+<body>
+
+  <header>
+    <!-- En una página interna el h1 nombra la página, no la organización.
+         El nombre del sitio baja a un párrafo de apoyo. -->
+    <h1>Boletín de precios</h1>
+    <p>Asoarroz Casanare - Asociación de productores de arroz de Aguazul</p>
+
+    <nav aria-label="Navegación principal">
+      <ul>
+        <!-- RUTA HERMANA: index.html está en la misma carpeta que este archivo -->
+        <li><a href="index.html">Inicio</a></li>
+
+        <!-- aria-current="page" marca el enlace de la página actual.
+             El lector de pantalla anuncia "página actual" y el usuario
+             sabe dónde está sin depender del color del menú. -->
+        <li><a href="precios.html" aria-current="page">Precios</a></li>
+        <li><a href="asociados.html">Asociados</a></li>
+
+        <!-- RUTA HACIA ABAJO: entra a la carpeta paginas -->
+        <li><a href="paginas/contacto.html">Contacto</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- DIAPOSITIVA 19 - Tabla de datos accesible -->
+    <section>
+      <h2>Precio del bulto por semana</h2>
+
+      <table>
+        <!-- caption es el título de la tabla. Es obligatorio y lo lee
+             el lector de pantalla antes de entrar a los datos. -->
+        <caption>Precio del bulto de arroz paddy verde, agosto de 2026</caption>
+
+        <thead>
+          <tr>
+            <!-- scope="col": esta celda encabeza toda una columna -->
+            <th scope="col">Semana</th>
+            <th scope="col">Precio mínimo</th>
+            <th scope="col">Precio máximo</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <!-- scope="row": esta celda encabeza toda una fila.
+                 Con esto el lector anuncia "Semana 1, precio mínimo,
+                 188.000" en vez de leer un número suelto. -->
+            <th scope="row">Semana 1</th>
+            <td>188.000</td>
+            <td>194.000</td>
+          </tr>
+          <tr>
+            <th scope="row">Semana 2</th>
+            <td>190.500</td>
+            <td>196.000</td>
+          </tr>
+          <tr>
+            <th scope="row">Semana 3</th>
+            <td>192.500</td>
+            <td>197.500</td>
+          </tr>
+          <tr>
+            <th scope="row">Semana 4</th>
+            <td>195.000</td>
+            <td>199.000</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>Valores en pesos colombianos por bulto de 62,5 kilogramos.
+         Fuente: registro interno de la asociación.</p>
+    </section>
+
+    <!-- DIAPOSITIVA 18 - Lista ORDENADA: el orden es parte del significado -->
+    <section>
+      <h2>Cómo se comercializa la cosecha</h2>
+
+      <!-- Es <ol> y no <ul> porque invertir los pasos cambia el resultado -->
+      <ol>
+        <li>El asociado reporta el volumen cosechado en la oficina de Aguazul.</li>
+        <li>Se toma la muestra de humedad e impurezas del lote.</li>
+        <li>Se aplica el descuento por humedad sobre el precio de referencia.</li>
+        <li>Se emite la orden de entrega al molino.</li>
+        <li>El pago se gira dentro de los quince días siguientes a la entrega.</li>
+      </ol>
+    </section>
+
+    <!-- DIAPOSITIVA 18 - Lista de DEFINICIONES: pares término y descripción -->
+    <section>
+      <h2>Glosario de términos</h2>
+
+      <dl>
+        <!-- dt = término definido, dd = su descripción -->
+        <dt>Paddy verde</dt>
+        <dd>Arroz recién cosechado, sin secar y sin trillar.</dd>
+
+        <dt>Descuento por humedad</dt>
+        <dd>Reducción del precio proporcional al exceso de agua del grano
+            respecto del catorce por ciento de referencia.</dd>
+
+        <dt>Bulto</dt>
+        <dd>Unidad de comercialización equivalente a 62,5 kilogramos.</dd>
+      </dl>
+    </section>
+
+    <!-- DIAPOSITIVA 20 - Multimedia con alternativas accesibles -->
+    <section>
+      <h2>Cómo se toma la muestra de humedad</h2>
+
+      <video controls poster="img/portada-video.jpg" width="640">
+        <!-- source: el archivo de video y su formato -->
+        <source src="video/muestra-humedad.mp4" type="video/mp4">
+
+        <!-- track: los subtítulos. Sin ellos el video excluye a quien no oye
+             y también a quien lo ve sin audífonos. -->
+        <track src="video/subtitulos-es.vtt" kind="captions"
+               srclang="es" label="Español" default>
+
+        <!-- Texto de reserva para navegadores que no reproducen video -->
+        <p>Su navegador no reproduce video.
+           <a href="video/muestra-humedad.mp4">Descargue el archivo</a>.</p>
+      </video>
+
+      <!-- RUTA HACIA ABAJO: entra a la carpeta img -->
+      <figure>
+        <img src="img/medidor-humedad.jpg"
+             alt="Medidor de humedad digital mostrando 14,2 por ciento">
+        <figcaption>Lectura del medidor durante la recepción de un lote.</figcaption>
+      </figure>
+    </section>
+
+  </main>
+
+  <aside>
+    <h2>Aviso</h2>
+    <p>Los precios son de referencia y no constituyen una oferta comercial.</p>
+  </aside>
+
+  <footer>
+    <p>Asoarroz Casanare - Calle 9 No. 12-40, Aguazul, Casanare</p>
+    <p><a href="mailto:contacto@asoarroz-casanare.co">contacto@asoarroz-casanare.co</a></p>
+  </footer>
+
+</body>
+
+</html>
